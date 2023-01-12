@@ -1,0 +1,214 @@
+<div class="container">
+<div class="row">
+    <div class="col-md-12">
+        <div class="fb-profile-block">
+            <div class="fb-profile-block-thumb cover-container"></div>
+            <div class="profile-img">
+              <a href="#">    
+                   <%= image_tag User.first.profile_pic_url, class: "pc-img1"%>
+              </a>
+            </div>
+            <div class="edit">
+              <a href="#">
+               <i class="fa fa-solid fa-pencil"></i>
+              </a>
+            </div>
+
+            <div class="cover-img">
+              <a href="#">    
+                   <%= image_tag User.first.cover_pic_url, class: "pc-img2"%>
+              </a>
+            </div>
+            <div class="edit1">
+              <a href="#">
+               <i class="fa fa-solid fa-pencil"></i>
+              </a>
+            </div>
+            <div class="profile-name">
+                <h2>SARITA</h2>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+<input type="file" id="profile_img" >
+<input type="file" id="cover_img" >
+<script>
+  $(document).ready(function(){
+    $(".edit").click(function(){
+      $("#profile_img").click();
+    })
+
+    $("#profile_img").on('change',function(){
+      
+      var test = this.files[0]
+      console.log(test)
+      var f = new FormData(document.forms[0]);
+      f.append("image", test);
+      console.log(f)
+
+
+      $.ajax({
+        url: '/users/upload_profile',
+        enctype: 'multipart/form-data',
+        type: 'POST',
+        data: f,
+        processData: false,
+        contentType: false,
+        cache: false,
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
+    
+      });
+    });
+
+    $(".edit1").click(function(){
+      $("#cover_img").click();
+    })
+
+    $("#cover_img").on('change',function(){
+      
+      var test = this.files[0]
+      console.log(test)
+      var f = new FormData(document.forms[0]);
+      f.append("image", test);
+      console.log(f)
+
+
+      $.ajax({
+        url: '/users/upload_cover',
+        enctype: 'multipart/form-data',
+        type: 'POST',
+        data: f,
+        processData: false,
+        contentType: false,
+        cache: false,
+        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))}
+      });
+    });
+  });
+
+</script>
+
+
+<style>
+.fb-profile-block {
+  margin: auto;
+  position: relative;
+  width: 100%;
+}
+.cover-container{
+    background: #1E90FF;
+    background: -webkit-radial-gradient(bottom, #73D6F5 12%, #1E90FF);
+    background: radial-gradient(at bottom, #73D6F5 12%, #1E90FF)
+}
+.fb-profile-block-thumb{
+  display: block;
+  height: 315px;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+}
+.fb-profile-block-menu {
+  border: 1px solid #d3d6db;
+  border-radius: 0 0 3px 3px;
+}
+.profile-img a{
+    bottom: 15px;
+    top: 145px;
+    box-shadow: none;
+  display: block;
+  left: 15px;
+  padding:1px;
+  position: absolute;
+  height: 160px;
+  width: 160px;
+  background: rgba(0, 0, 0, 0.3) none repeat scroll 0 0;
+  z-index:9;
+}
+.profile-img img {
+  background-color: #fff;
+  border-radius: 2px;
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.07);
+  height:158px;
+  padding: 5px;
+  width:158px;
+}
+.profile-name {
+  bottom: 60px;
+  left: 200px;
+  position: absolute;
+}
+.profile-name h2 {
+  color: blue;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 30px;
+  max-width: 275px;
+  position: relative;
+  text-transform: uppercase;
+}
+.fb-profile-block-menu{
+  height: 44px;
+  position: relative;
+  width:100%;
+  overflow:hidden;
+ }
+.block-menu {
+  clear: right;
+  padding-left: 205px;
+}
+.block-menu ul{
+  margin:0;
+  padding:0;
+}
+
+.block-menu ul li{
+  display:inline-block;
+}
+.block-menu ul li a {
+  border-right: 1px solid #e9eaed;
+  float: left;
+  font-size: 14px;
+  font-weight: bold;
+  height: 42px;
+  line-height: 3.0;
+  padding: 0 17px;
+  position: relative;
+  vertical-align: middle;
+  white-space: nowrap;
+  color:#4b4f56;
+  text-transform:capitalize;
+}
+.block-menu ul li:first-child a{
+  border-left: 1px solid #e9eaed;
+}
+.edit{
+  left: 160px;
+  top: 139px;
+  position: absolute;
+  z-index: 9999;
+  
+}
+
+.edit a{
+  color:black;
+}
+#profile_img {
+  display:none;
+}
+.edit1{
+  right: 0px;
+  top: 29px;
+  position: absolute;
+  z-index: 9999;
+  
+}
+
+.edit a{
+  color:black;
+}
+#cover_img {
+  display:none;
+}

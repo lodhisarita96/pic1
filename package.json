@@ -1,0 +1,7 @@
+{
+  "name": "pic1",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.6.3"
+  }
+}
